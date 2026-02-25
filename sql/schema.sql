@@ -1,3 +1,13 @@
+CREATE DATABASE IF NOT EXISTS ota_booking
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE ota_booking;
+
+DROP TABLE IF EXISTS bookings;
+DROP TABLE IF EXISTS rooms;
+DROP TABLE IF EXISTS hotels;
+
 CREATE TABLE hotels (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(150) NOT NULL,
@@ -51,4 +61,29 @@ CREATE TABLE bookings (
   INDEX idx_bookings_email (email)
 ) ENGINE=InnoDB;
 
+-- Seed data
+INSERT INTO hotels (id, name, city, address, description) VALUES
+  (1, 'HOTEL-BALI', 'BALI', 'jl.testinggg', 'testinggg'),
+  (2, 'HOTEL JAKARTA', 'JAKARTA', 'jl.jakajaskajk', 'TESTINGG');
 
+INSERT INTO rooms (id, hotel_id, name, capacity, price_per_night, total_rooms) VALUES
+  (1, 1, 'VIP', 4, 4500000.00, 1),
+  (2, 2, 'VIP', 6, 7500000.00, 1);
+
+INSERT INTO bookings (
+  id,
+  booking_reference,
+  hotel_id,
+  room_id,
+  full_name,
+  email,
+  check_in_date,
+  check_out_date,
+  guests,
+  price_per_night_snapshot,
+  total_nights,
+  total_price,
+  status
+) VALUES
+  (1, '51d09c4e-618f-428b-8020-4604f2154c7c', 1, 1, 'fikri', 'fikrimobiliu@gmail.com', '2026-02-25', '2026-02-26', 2, 4500000.00, 1, 4500000.00, 'CONFIRMED'),
+  (2, '14859fc2-d955-4ff7-a5dc-137f4ff5ca28', 2, 2, 'Fikri2', 'Testing@testing.com', '2026-02-25', '2026-02-26', 1, 7500000.00, 1, 7500000.00, 'CONFIRMED');
